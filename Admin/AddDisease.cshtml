@@ -1,0 +1,26 @@
+﻿@model Ayurveda.Models.M_Disease
+@{
+    ViewBag.Title = "AddDisease";
+}
+
+@Html.Partial("_AdminLayout")
+@using(Html.BeginForm())
+{
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-bordered">
+                <tr>
+                    <th>Disease Name</th>
+                    <th>@Html.TextBoxFor(x => x.Disease, new {@class="form-control",@tabindex="1"})</th>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <input type="submit" value="Add Disease" class="btn btn-success" />
+                    </td>
+                </tr>
+            </table>
+            </div>
+        </div>
+</div>
+}

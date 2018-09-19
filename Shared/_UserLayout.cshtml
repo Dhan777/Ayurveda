@@ -1,0 +1,19 @@
+﻿@{
+    ViewBag.Title = "_UserLayout";
+}
+<br /><br />
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-bordered" style="text-align: center">
+                <tr>
+                    <td>@Html.ActionLink("Home", "Home", "Home")</td>
+                    <td>@Html.ActionLink("Shop", "Index", "Shop")</td>
+                    <td>@Html.ActionLink("Yoga", "YogaList", "Yoga")</td>
+                    <td>@Html.ActionLink("Descriptions", "Index", "Description")</td>
+                    <td>@Html.ActionLink("Logout","Logout","Account")</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

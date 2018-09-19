@@ -1,0 +1,87 @@
+﻿@model Ayurveda.Models.Products
+@{
+    ViewBag.Title = "Upload Products";
+}   
+@Html.Partial("_AdminLayout")
+<br />
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+            <h3>Upload Products</h3>
+        </div>
+    </div>
+</div><br />
+
+@using (Html.BeginForm("UploadProducts", "Admin", FormMethod.Post, new {enctype="multipart/form-data" }))
+{
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+               
+            </div>
+            <div class="col-md-4">
+              
+              
+            </div>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4"><label>Product Name</label></div>
+            <div class="col-md-8">@Html.TextBoxFor(x => x.ProductName, new { @class = "form-control" })</div>
+        </div>
+        <div class="row">
+            <div class="col-md-4"><label>Product Price</label></div>
+            <div class="col-md-8">@Html.TextBoxFor(x => x.Price, new { @class = "form-control" })</div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4"><label>Company Name</label></div>
+            <div class="col-md-8">@Html.TextBoxFor(x => x.CompnayName, new { @class = "form-control" })</div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4"><label>Quantity</label></div>
+            <div class="col-md-8">@Html.TextBoxFor(x => x.Quantity, new { @class = "form-control" })</div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4"><label>Unit</label></div>
+            <div class="col-md-8">
+            @Html.DropDownListFor(x => x.UnitId, (new Ayurveda.Models.MasterModel()).GetUnit(), "Select", new { @class = "form-control" })</div>
+        </div>
+        <div class="row">
+            <div class="col-md-4"><label>Product Image</label></div>
+            <div class="col-md-8">
+            @Html.TextBoxFor(x => x.File, new {@type="file", @class = "form-control" })</div>
+        </div>
+        <div class="row">
+            <div class="col-md-4"><label>Disease</label></div>
+            <div class="col-md-8">
+            @Html.DropDownListFor(x => x.DiseaseID, (new Ayurveda.Models.MasterModel()).GetDisease(), "Select", new { @class = "form-control" })</div>
+        </div>
+        <input type="submit" value="Upload Image" class="btn btn-success" onclick="return Validate();" />
+    </div>
+}
+<script>
+    function Validate()
+    {
+        var isOk = true;
+        $('input').each(function () {
+            if ($(this).val() == "") {
+                alert("Please Enter " + $(this).parent().parent().find('label').text());
+                isOk = false;
+                return false;
+            }
+            if (!(isOk))
+            {
+                return false;
+            }
+            return false;
+        });
+    }
+</script>
+
+
+

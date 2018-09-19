@@ -1,0 +1,33 @@
+﻿@model Ayurveda.Models.M_Description
+@{
+    ViewBag.Title = "Index";
+}
+@{
+    if (string.IsNullOrWhiteSpace(Session["UserId"].ToString()))
+    {
+@Html.Partial("_LoginLayout")        
+    }
+    else
+    {
+    @Html.Partial("_UserLayout")        
+    }
+}
+
+  <br />
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+             @foreach(var p in Model.Descriptions)
+                               {
+                                   <div class="col-md-3">
+                                       <img src="data:/image/png;base64,@Convert.ToBase64String(p.ImageData,0,p.ImageData.Length)"width="200"height="200"class="img img-thumbnail img-responseve">
+                                       <br />
+                                       <p>@p.Disease </p>
+                                   </div>
+                 <div class="col-md-9">
+                                       <p>@p.Description</p>
+                                   </div>
+                               }
+        </div>
+    </div>
+</div>

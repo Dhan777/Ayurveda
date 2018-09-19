@@ -1,0 +1,25 @@
+﻿@model Ayurveda.Models.M_Unit
+@{
+    ViewBag.Title = "AddUnit";
+}
+@Html.Partial("_AdminLayout")
+@using(Html.BeginForm())
+{
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-bordered">
+                <tr>
+                    <th>Unit Name</th>
+                    <th>@Html.TextBoxFor(x => x.Unit, new {@class="form-control",@tabindex="1"})</th>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <input type="submit" value="Add Unit" class="btn btn-success" />
+                    </td>
+                </tr>
+            </table>
+            </div>
+        </div>
+</div>
+}

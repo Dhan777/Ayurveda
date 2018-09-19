@@ -1,0 +1,59 @@
+﻿@model Ayurveda.Models.Yoga
+@{
+    ViewBag.Title = "Upload Yoga Details";
+}
+
+@Html.Partial("_AdminLayout")
+<br />
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+            <h3>Add Yoga</h3>
+        </div>
+    </div>
+</div><br />
+
+@using (Html.BeginForm("Index", "Yoga", FormMethod.Post, new {enctype="multipart/form-data" }))
+{
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+               
+            </div>
+            <div class="col-md-4">
+              
+              
+            </div>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4"><label>Yoga Name</label></div>
+            <div class="col-md-8">@Html.TextBoxFor(x => x.YogaName, new { @class = "form-control" })</div>
+        </div>
+        <div class="row">
+            <div class="col-md-4"><label>Yoga  Image</label></div>
+            <div class="col-md-8">
+            @Html.TextBoxFor(x => x.File, new {@type="file", @class = "form-control" })</div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4"><label>Disease</label></div>
+            <div class="col-md-8">
+            @Html.DropDownListFor(x => x.DiseaseID,(new Ayurveda.Models.MasterModel()).GetDisease(),"Select" ,new {@class = "form-control" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4"><label>Description</label></div>
+            <div class="col-md-8">
+            @Html.TextAreaFor(x => x.YogaDescription ,new {@class = "form-control" })
+            </div>
+        </div>
+        <input type="submit" value="Upload Yoga Details" class="btn btn-success" />
+    </div>
+}
+
+
+
+

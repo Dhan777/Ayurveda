@@ -1,0 +1,114 @@
+﻿@model Ayurveda.Models.Users
+@{
+    ViewBag.Title = "Home";
+}
+
+@Html.Partial("_AdminLayout")
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12" style="text-align:center;font-family:Algerian;color:red">
+            <h1>Admin - Panel</h1>
+        </div>
+    </div>
+</div>
+<hr />
+
+@using (Html.BeginForm("SendMessage", "Admin", FormMethod.Post))
+{
+   @Html.HiddenFor(x => x.To)
+
+     <div class="container">
+        <div class="row">
+
+            <div class="col-md-8">
+                <div class="row">
+                    <div class="col-md-4">
+                        <img src="~/Content/Images/Logo.jpg" width="100" height="100" class="img img-thumbnail img-responsive" />
+                    </div>
+                    <div class="col-md-4">
+                        <h3>@Session["Name"]</h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="col-md-12" id="MsgArea"></div>
+                <table class="table table-bordered">
+                    <tr>
+                        <th>@Html.TextAreaFor(x => x.message,
+                    new
+                    {
+                        @class = "form-control"
+                    })</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="button" onclick="Data()" name="SendMsg" value="Send" class="form-control btn btn-success" /></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+}
+
+<script>
+    $(document).ready(function ()
+    {
+     //   GetMsg();
+        GetMsg();
+        setInterval("GetMsg()", 3000); GetMsg
+    });
+
+
+    function GetMsg() {
+        $.ajax({
+            type: "Get",
+            url: '@Url.Action("GetMessage", "Admin")',
+                datatype: "json",
+                success: function (Response) {
+                    var Result = "";
+                    $.each(Response, function (index, value) {
+                        $("#To").val(value.UserID);
+                        Result = Result + value.message + "<br>"
+                    });
+                    $("#MsgArea").html(Result) + "<br>";
+                    // $("#message").val("");
+                },
+                error: function (xhtr) { },
+                complete: function (x) { }
+            });
+    }
+
+
+
+    function Data2()
+    {
+        alert("Data2");
+    }
+    function Data() {
+        debugger;
+        var Msg = $("#message").val();
+        $.ajax({
+            type: "Post",
+            url: '@Url.Action("SendMessage", "Admin")',
+            datatype: "json",
+            data: { Msg: Msg ,To:$("#To").val()},
+            success: function (Response) {
+                var Result = "";
+                $.each(Response, function (index, value) {
+                    Result = Result + value.message+"<br>"
+                });
+               
+                    $("#MsgArea").html(Result) + "<br>";
+                    $("#message").val("");
+               
+            },
+            error: function (xhtr) { },
+            complete: function (x) { }
+        });
+    }
+
+</script>
+
+

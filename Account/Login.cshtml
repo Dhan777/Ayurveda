@@ -1,0 +1,58 @@
+﻿@model Ayurveda.Models.Users
+@{
+    ViewBag.Title = "Login";
+}
+@Html.Partial("_LoginLayout")  
+ <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-1" style="text-align: center; font-family: Algerian">
+                <h3>Login Here</h3>
+                <noscript>
+                    <p style="font-family: 'Times New Roman'">
+                        Please Enable Java Script for better Useability of Application:-<br />
+                        @TempData["Msg"]
+                    </p>
+                </noscript>
+            </div>
+        </div>
+    </div>
+    <hr />
+@using(Html.BeginForm())
+{
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-bordered">
+                <tr>
+                    <th>User Id</th>
+                    <th>@Html.TextBoxFor(x => x.UserID, new {@class="form-control",@tabindex="1",@onkeypress="return onlyAlphaNum(event,this);"})</th>
+                </tr>
+                <tr>
+                    <th>Password</th>
+                    <td>@Html.PasswordFor(x => x.DisplayPassword, new 
+                   {
+                       @class="form-control",@tabindex="2" 
+                   })</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-offset-4 col-md-4">
+            <input type="submit" value="Login" class="btn btn-success" />
+            <input type="reset" value="Reset" class="btn btn-danger" />
+        </div>
+        <div class="col-md-4">
+          @Html.ActionLink("Forget Password", "ForgetPassword", "Account")
+        </div>
+    </div>
+</div>
+}
+<script src="~/Content/CustomJS/Validation.js?v=01"></script>
+<script>
+    $(document).ready(function () {
+        if ('@TempData["Msg"]' != "") {
+            swal('@TempData["Msg"]', '@TempData["Desc"]', '@TempData["Status"]');
+        }
+    });
+</script>

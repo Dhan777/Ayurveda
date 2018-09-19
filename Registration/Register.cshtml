@@ -1,0 +1,149 @@
+﻿@model Ayurveda.Models.Users
+@{
+    ViewBag.Title = "Register";
+}
+@Html.Partial("_LoginLayout")   
+
+@if (TempData.Peek("Page") == "Registration")
+{ 
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-1" style="text-align: center; font-family: Algerian">
+                <h3>Registration form</h3>
+                <noscript>
+                    <p style="font-family: 'Times New Roman'">
+                        Please Enable Java Script for better Useability of Application:-<br />
+                        @TempData["Msg"]
+                    </p>
+                </noscript>
+            </div>
+        </div>
+    </div>
+    <hr />
+    using (Html.BeginForm("Register", "Registration", FormMethod.Post, new {enctype="multipart/form-data" }))
+    {
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-bordered">
+                    <tr>
+                        <th>Name</th>
+                        <td>@Html.TextBoxFor(x => x.Name, new { @class = "form-control", @tabindex = "1", @validateKey = "inputName", @maxlength = "50", @onkeypress = "return onlyAlphabets(event,$(this))" })</td>
+                    </tr>
+                    <tr>
+                        <th>Gender</th>
+                        <td>@Html.RadioButtonFor(x => x.Gender, "M", new { @validateKey = "inputGender" }) Male
+                        @Html.RadioButtonFor(x => x.Gender, "F", new { @validateKey = "inputGender" }) Female
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Father Name</th>
+                        <td>@Html.TextBoxFor(x => x.FatherName, new { @class = "form-control", @tabindex = "2", @validateKey = "inputfName", @maxlength = "50", @onkeypress = "return onlyAlphabets(event,$(this))" })</td>
+                    </tr>
+                    <tr>
+                        <th>Email</th>
+                        <td>@Html.TextBoxFor(x => x.Email, new { @class = "form-control", @tabindex = "3", @validateKey = "inputEmail", @maxlength = "50" })</td>
+                    </tr>
+                    <tr>
+                        <th>Contact</th>
+                        <td>@Html.TextBoxFor(x => x.Contact, new { @class = "form-control", @tabindex = "4", @validateKey = "inputContact", @maxlength = "10", @onkeypress = "return isNumber(event)" })</td>
+                    </tr>
+                    <tr>
+                        <th>Address</th>
+                        <td>@Html.TextAreaFor(x => x.Address, new { @class = "form-control", @tabindex = "5", @validateKey = "inputAddress", @maxlength = "200" })</td>
+                    </tr>
+                    <tr>
+                        <th>Upload Image</th>
+                        <td>@Html.TextBoxFor(x => x.File, new { @type = "file", @class = "form-control", @tabindex = "7" })</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8 col-md-offset-4">
+                <input type="submit" value="Save&continue" onclick="return Validate();" class="btn btn-success" />
+                <input type="reset" value="Reset" class="btn btn-danger" />
+            </div>
+        </div>
+    </div>
+    }
+
+}
+
+@if (TempData.Peek("Page") == "OTP")
+{
+   <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-1" style="text-align: center; font-family: Algerian">
+                <h3>OTP Verification</h3>
+                <noscript>
+                    <p style="font-family: 'Times New Roman'">
+                        Please Enable Java Script for better Useability of Application:-<br />
+                        @TempData["Msg"]
+                    </p>
+                </noscript>
+            </div>
+        </div>
+    </div>
+      
+    using (Html.BeginForm("OTPVerification","Registration",FormMethod.Post))
+    {
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    @Html.HiddenFor(x=>x.UserID)
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>Enter OTP </th>
+                            <td>@Html.TextBoxFor(x => x.OTP, new {@class="form-control"})</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <input type="submit" value="Verify OTP" onclick="return VelidateOTP();" class="btn btn-success" />
+                                <input type="reset" value="Reset" class="btn btn-danger" />
+                            </td>
+
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    }
+}
+
+
+<script src="~/Content/CustomJS/Validation.js"></script>
+
+<script>
+    $(document).ready(function () {
+        if ('@TempData["Msg"]' != "") {
+            swal('@TempData["Msg"]', '@TempData["Desc"]', '@TempData["Status"]');
+        }
+        if ($("#OTP").val() != "")
+        {
+            $("#OTP").val("");
+        }
+    });
+    function Validate() {
+        debugger;
+        if ($("#Name").val() == "") { swal("Please Enter Name", "", "warning"); $("#Name").focus(); return false; }
+        if (!($("input:radio[name='Gender']").is(":checked"))) { swal("Please Select Gender", "", "warning"); return false; }
+        if ($("#FatherName").val() == "") { swal("Please Enter Father Name", "", "warning"); return false; }
+        if ($("#Email").val() == "") { swal("Please Enter Email ", "", "warning"); return false; }
+        if (!(ValidateEmail($("#Email").val()))) { swal("Please Enter Valid Email ID", "", "warning"); return false; }
+        if ($("#Contact").val() == "") { swal("Please Enter Contact", "", "warning"); return false; }
+        if ($("#Contact").val().length != "10") { swal("Please Enter Valid Contact", "", "warning"); return false; }
+        if ($("#Address").val() == "") { swal("Please Enter Address", "", "warning"); return false; }
+    }
+
+    function VelidateOTP()
+    {
+        if ($("#OTP").val() == "")
+        {
+            swal("Please Enter OTP", "OTP can not be left blank");
+            $("#OTP").focus();
+            return false;
+        }
+
+    }
+</script>

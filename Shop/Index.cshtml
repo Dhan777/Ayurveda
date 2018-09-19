@@ -1,0 +1,29 @@
+﻿@model Ayurveda.Models.Products
+@{
+    ViewBag.Title = "Index";
+}
+@{
+    if (Session["UserId"]==null)
+    {
+@Html.Partial("_LoginLayout")        
+    }
+    else
+    {
+    @Html.Partial("_UserLayout")        
+    }
+}
+  <br />
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+             @foreach(var p in Model.products)
+                               {
+                                   <div class="col-md-3">
+                                       <img src="data:/image/png;base64,@Convert.ToBase64String(p.ImageData,0,p.ImageData.Length)"width="200"height="200"class="img img-thumbnail img-responseve">
+                                       <br />
+                                       <p>@p.ProductName @p.Price @p.Quantity @p.Unit</p>
+                                   </div>
+                               }
+        </div>
+    </div>
+</div>

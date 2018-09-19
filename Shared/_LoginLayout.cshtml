@@ -1,0 +1,27 @@
+﻿@{
+    ViewBag.Title = "_LoginLayout";
+}
+
+<div class="container">
+    <div class="col-md-offset-1 col-md-10">
+<img src="~/Content/Images/BackGround.png" class="img img-responsive" style="border:1px solid black" />
+        </div>
+    </div>
+
+<div class="container">
+<div class="row">
+    <div class="col-md-offset-1 col-md-10">
+<table class="table" style="text-align:center">
+    <tr>
+        <td>@Html.ActionLink("Yoga","YogaList","Yoga")</td>
+        <td>@Html.ActionLink("Medicine","Index","Shop")</td>
+        <td>@Html.ActionLink("Home","index","Home")</td>
+        <td>@Html.ActionLink("About US","About","Home")</td>
+        <td>@Html.ActionLink("Login","Login","Account")</td>
+        <td>@Html.ActionLink("Registration","Register","Registration")</td>
+        <td>@Html.ActionLink("Contact US","Contactus","Home")</td>
+    </tr>
+</table>
+</div>
+    </div>
+    </div>
